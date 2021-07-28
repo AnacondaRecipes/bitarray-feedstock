@@ -23,12 +23,18 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
 
 test:
   imports:
     - bitarray
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/ilanschnell/bitarray
