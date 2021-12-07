@@ -26,12 +26,13 @@ requirements:
     - setuptools
     - wheel
   run:
-    - python
+    - python >=3.6
 
 test:
   imports:
     - bitarray
   requires:
+    - python <3.10
     - pip
   commands:
     - pip check
