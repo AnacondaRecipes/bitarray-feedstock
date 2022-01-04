@@ -1,3 +1,3 @@
 import bitarray
 
-assert bitarray.test().wasSuccessful()
+assert bitarray.test(verbosity=2).wasSuccessful()
