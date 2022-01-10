@@ -10,11 +10,9 @@ source:
   sha256: 60285184cb02fdba5e1cc8605ac84e150a50f940e9383ab43564e5258d1f47bb
 
 build:
-  number: 1
-  {% if 'pypy' in python %}
+  number: 0
   # https://github.com/ilanschnell/bitarray/issues/99
-  skip: true
-  {% endif %}
+  skip: true  # [python_impl == "pypy"]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -38,7 +36,7 @@ test:
 
 about:
   home: https://github.com/ilanschnell/bitarray
-  license: PSF
+  license: PSF-2.0
   license_file: LICENSE
   license_family: PSF
   summary: efficient arrays of booleans -- C extension
