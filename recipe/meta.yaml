@@ -1,5 +1,5 @@
 {% set name = "bitarray" %}
-{% set version = "2.5.1" %}
+{% set version = "3.4.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8d38f60751008099a659d5acfb35ef4150183effd5b2bfa6c10199270ddf4c9c
+  sha256: 78ed2b911aabede3a31e3329b1de8abdc8104bd5e0545184ddbd9c7f668f4059
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<36]
 
 requirements:
   build:
@@ -19,31 +20,39 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools >=42.0.0
     - wheel
   run:
     - python
+  run_constrained:
+    - python >=3.6.1
 
 test:
   imports:
     - bitarray
-  requires:
-    - pip
+    - bitarray._bitarray
+    - bitarray._util
+    - bitarray.test_bitarray
+    - bitarray.util
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest --pyargs bitarray
+  requires:
+    - pip
+    - pytest
 
 about:
   home: https://github.com/ilanschnell/bitarray
   license: PSF-2.0
-  license_file: LICENSE
   license_family: PSF
+  license_file: LICENSE
   summary: efficient arrays of booleans -- C extension
   description: |
     Bitarray provides an object type which efficiently represents an array of
     booleans. Bitarrays are sequence types that behave very similarly
     to usual lists. All functionality is implemented in C.
-  doc_url: https://pypi.python.org/pypi/bitarray/{{ version }}
-  doc_source_url: https://github.com/ilanschnell/bitarray/blob/master/README.rst
+  doc_url: https://pypi.python.org/pypi/bitarray
   dev_url: https://github.com/ilanschnell/bitarray
 
 extra:
