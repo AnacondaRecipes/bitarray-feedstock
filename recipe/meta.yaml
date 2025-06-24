@@ -44,8 +44,8 @@ test:
 
 about:
   home: https://github.com/ilanschnell/bitarray
-  license: BSD-4-Clause
-  license_family: BSD
+  license: PSF-2.0
+  license_family: PSF
   license_file: LICENSE
   summary: efficient arrays of booleans -- C extension
   description: |
@@ -53,7 +53,6 @@ about:
     booleans. Bitarrays are sequence types that behave very similarly
     to usual lists. All functionality is implemented in C.
   doc_url: https://pypi.python.org/pypi/bitarray
-  doc_source_url: https://github.com/ilanschnell/bitarray/blob/master/README.rst
   dev_url: https://github.com/ilanschnell/bitarray
 
 extra:
