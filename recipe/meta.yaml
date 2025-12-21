@@ -1,18 +1,18 @@
 {% set name = "bitarray" %}
-{% set version = "3.4.2" %}
+{% set version = "3.8.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 78ed2b911aabede3a31e3329b1de8abdc8104bd5e0545184ddbd9c7f668f4059
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3eae38daffd77c9621ae80c16932eea3fb3a4af141fb7cc724d4ad93eff9210d
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: True  # [py<36]
+  skip: true  # [py<36]
 
 requirements:
   build:
@@ -21,7 +21,6 @@ requirements:
     - python
     - pip
     - setuptools >=42.0.0
-    - wheel
   run:
     - python
   run_constrained:
@@ -52,7 +51,7 @@ about:
     Bitarray provides an object type which efficiently represents an array of
     booleans. Bitarrays are sequence types that behave very similarly
     to usual lists. All functionality is implemented in C.
-  doc_url: https://pypi.python.org/pypi/bitarray
+  doc_url: https://pypi.org/pypi/bitarray
   dev_url: https://github.com/ilanschnell/bitarray
 
 extra:
