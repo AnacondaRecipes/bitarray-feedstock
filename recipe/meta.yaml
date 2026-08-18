@@ -1,5 +1,5 @@
 {% set name = "bitarray" %}
-{% set version = "3.8.0" %}
+{% set version = "3.10.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3eae38daffd77c9621ae80c16932eea3fb3a4af141fb7cc724d4ad93eff9210d
+  sha256: c33e48906407ab3d0edb96cc5ab2a599bda5dd04704ebcd9b3e0eedce7310e0a
 
 build:
   number: 0
@@ -22,7 +22,6 @@ requirements:
     - python
     - pip
     - setuptools >=42.0.0
-    - wheel
   run:
     - python
   run_constrained:
