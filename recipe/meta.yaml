@@ -9,6 +9,8 @@ source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c33e48906407ab3d0edb96cc5ab2a599bda5dd04704ebcd9b3e0eedce7310e0a
   patches:
+    # test_free_threading.py asserted Py_GIL_DISABLED unconditionally, crashing
+    # tests on non-free-threaded builds. Patched to pytest.skip() instead.
     - patches/0001-Skip-test-which-uses-Py_GIL_DISABLED.patch
 
 build:
