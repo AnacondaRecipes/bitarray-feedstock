@@ -1,0 +1,28 @@
+From 434336873482c97585a8a7410305cc7d1cb7abde Mon Sep 17 00:00:00 2001
+From: Andrii Vetroumov <avetroumov@anaconda.com>
+Date: Wed, 19 Aug 2026 13:53:39 +0300
+Subject: [PATCH] Skip test which uses Py_GIL_DISABLED
+
+---
+ bitarray/test_free_threading.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/bitarray/test_free_threading.py b/bitarray/test_free_threading.py
+index fcabb557..a8726b66 100644
+--- a/bitarray/test_free_threading.py
++++ b/bitarray/test_free_threading.py
+@@ -24,7 +24,10 @@ import traceback
+ import unittest
+ import weakref
+ 
+-assert sysconfig.get_config_var("Py_GIL_DISABLED")
++import pytest
++# assert sysconfig.get_config_var("Py_GIL_DISABLED")
++if not sysconfig.get_config_var("Py_GIL_DISABLED"):
++    pytest.skip("requires a free-threaded (no-GIL) Python build", allow_module_level=True)
+ 
+ from bitarray import bitarray, decodetree, frozenbitarray
+ from bitarray.util import _ssqi  # type: ignore
+-- 
+2.54.0
+

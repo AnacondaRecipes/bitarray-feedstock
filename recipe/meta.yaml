@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c33e48906407ab3d0edb96cc5ab2a599bda5dd04704ebcd9b3e0eedce7310e0a
+  patches:
+    - patches/0001-Skip-test-which-uses-Py_GIL_DISABLED.patch
 
 build:
   number: 0
@@ -27,12 +29,7 @@ requirements:
   run_constrained:
     - python >=3.6.1
 
-# E    +  where None = <function get_config_var at 0x105e09bc0>('Py_GIL_DISABLED')
-{% set tests_to_skip = "test_free_threading" %}
-
 test:
-  source_files:
-    - bitarray
   imports:
     - bitarray
     - bitarray._bitarray
@@ -42,7 +39,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -vv bitarray -k "not ({{ tests_to_skip }})"
+    - pytest --pyargs bitarray
   requires:
     - pip
     - pytest
