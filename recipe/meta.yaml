@@ -26,10 +26,9 @@ requirements:
     - python
     - pip
     - setuptools >=42.0.0
+    - wheel
   run:
     - python
-  run_constrained:
-    - python >=3.6.1
 
 test:
   imports:
