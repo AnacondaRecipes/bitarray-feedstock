@@ -1,23 +1,27 @@
 {% set name = "bitarray" %}
-{% set version = "3.8.0" %}
+{% set version = "3.10.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3eae38daffd77c9621ae80c16932eea3fb3a4af141fb7cc724d4ad93eff9210d
+  sha256: c33e48906407ab3d0edb96cc5ab2a599bda5dd04704ebcd9b3e0eedce7310e0a
+  patches:
+    # test_free_threading.py asserted Py_GIL_DISABLED unconditionally, crashing
+    # tests on non-free-threaded builds. Patched to pytest.skip() instead.
+    - patches/0001-Skip-test-which-uses-Py_GIL_DISABLED.patch
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py<36]
+  skip: true  # [py<37]
 
 requirements:
   build:
-    - {{ compiler('c') }}
     - {{ stdlib('c') }}
+    - {{ compiler('c') }}
   host:
     - python
     - pip
@@ -25,8 +29,6 @@ requirements:
     - wheel
   run:
     - python
-  run_constrained:
-    - python >=3.6.1
 
 test:
   imports:
