@@ -27,7 +27,12 @@ requirements:
   run_constrained:
     - python >=3.6.1
 
+# E    +  where None = <function get_config_var at 0x105e09bc0>('Py_GIL_DISABLED')
+{% set tests_to_skip = "test_free_threading" %}
+
 test:
+  source_files:
+    - bitarray
   imports:
     - bitarray
     - bitarray._bitarray
@@ -37,7 +42,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest --pyargs bitarray
+    - pytest -vv bitarray -k "not ({{ tests_to_skip }})"
   requires:
     - pip
     - pytest
